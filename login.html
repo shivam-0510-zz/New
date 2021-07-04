@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <style>
+      .example {
+        width: 15rem;
+        margin: 3rem auto;
+      }
+      h2 {
+        text-align: center;
+        color: #1163fc;
+        font-size: 80px;
+        letter-spacing: 6px;
+        font-weight: 300;
+        margin: 0;
+        line-height: 0;
+        animation: glitch1 0.5s infinite;
+      }
+      h2:nth-child(2) {
+        color: #f0ce0e;
+        animation: glitch2 1.0s infinite;
+      }
+      h2:nth-child(3) {
+        color: #f84c18;
+        animation: glitch3 1.0s infinite;
+      }
+      @keyframes glitch1 {
+        0% {
+          transform: none;
+          opacity: 1;
+        }
+        50% {
+          transform: skew(-2deg, 0.6deg);
+          opacity: 0.75;
+        }
+        100% {
+          transform: none;
+          opacity: 1;
+        }
+      }
+      @keyframes glitch2 {
+        0% {
+          transform: none;
+          opacity: 0.25;
+        }
+        50% {
+          transform: translate(-3px, -1px);
+          opacity: 0.5;
+        }
+        100% {
+          transform: none;
+          opacity: 0.25;
+        }
+      }
+      @keyframes glitch3 {
+        0% {
+          transform: none;
+          opacity: 0.25;
+        }
+        50% {
+          transform: translate(3px, 1px);
+          opacity: 0.5;
+        }
+        100% {
+          transform: none;
+          opacity: 0.25;
+        }
+      }
+      input{
+        padding: 0.4rem;
+        width: 14rem;
+        margin: 5rem auto -4rem;
+      }
+    </style>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="example">
+      <h2>Login</h2>
+      <h2>Login</h2>
+      <h2>Login</h2>
+      <form id="reg-form">
+        <input type="text" autocomplete="off" id="username" placeholder="Username" />
+        <input type="password" autocomplete="off" id="password" placeholder="Password" />
+        <input type="submit" value="Submit Form" />
+      </form>
+  
+      <script>
+        const form = document.getElementById('reg-form')
+        form.addEventListener('submit', registerUser)
+  
+        async function registerUser(event) {
+          event.preventDefault()
+          const username = document.getElementById('username').value
+          const password = document.getElementById('password').value
+  
+          const result = await fetch('/api/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              username,
+              password
+            })
+          }).then((res) => res.json())
+  
+          if (result.status === 'ok') {
+            // everythign went fine
+            alert('Success')
+          } else {
+            alert(result.error)
+          }
+        }
+      </script>
+  </body>
+</html>
